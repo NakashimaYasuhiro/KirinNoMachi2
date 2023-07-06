@@ -9082,7 +9082,7 @@ PrefabInstance:
     - target: {fileID: 180735874460892330, guid: 4912c60ab5058094582ad2adaf53313d, type: 3}
       propertyPath: parameter
       value: 
-      objectReference: {fileID: 1681171915}
+      objectReference: {fileID: 0}
     - target: {fileID: 180735874460892330, guid: 4912c60ab5058094582ad2adaf53313d, type: 3}
       propertyPath: item.sprite
       value: 
@@ -9111,7 +9111,7 @@ PrefabInstance:
     - target: {fileID: 5059854166549219988, guid: 7831dcbb76bc44b4f82e21e7d230014b, type: 3}
       propertyPath: parameter
       value: 
-      objectReference: {fileID: 1681171915}
+      objectReference: {fileID: 0}
     - target: {fileID: 5059854166549219988, guid: 7831dcbb76bc44b4f82e21e7d230014b, type: 3}
       propertyPath: item.sprite
       value: 

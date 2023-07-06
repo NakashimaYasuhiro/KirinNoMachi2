@@ -16,22 +16,21 @@ public class Parameter:MonoBehaviour
 
 
          stomachText.text = kirin.hp.ToString();
-        StartCoroutine(TimeLoop());
+        //StartCoroutine(TimeLoop());
     }
 
     private void Update()
     {
-
+        stomachText.text = kirin.hp.ToString();
     }
 
     IEnumerator TimeLoop()
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);//KirinÇ…Ç‡ÇΩÇπÇÈÅB
-            --kirin.hp;//KirinÇ…Ç‡ÇΩÇπÇÈÅB
+           
             stomachText.text = kirin.hp.ToString();
-            //yield return null;
+            yield return null;
             
         }
 

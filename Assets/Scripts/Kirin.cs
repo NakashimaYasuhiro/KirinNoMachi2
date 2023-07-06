@@ -15,6 +15,18 @@ public class Kirin : MonoBehaviour
         hp = 100;
     }
 
+    /*
+    IEnumerator KirinHP()
+    {
+        while (true)
+        {
+
+            hp = -1;
+            yield return null;
+        }
+    }
+    */
+
     public void Heal() 
     {
         hp += 100;
