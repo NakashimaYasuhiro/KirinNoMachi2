@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PickupObj : MonoBehaviour
 {
     [SerializeField] Item.Type itemType;
     Item item;
-    [SerializeField] Parameter parameter;
+    public UnityAction Eat;
+    //[SerializeField] Kirin kirin;
 
 
     private void Start()
@@ -19,6 +21,9 @@ public class PickupObj : MonoBehaviour
        
         //ItemBox.instance.SetItem(item);
         gameObject.SetActive(false);
-        parameter.hp += 500;
+        //kirin.hp += 500;
+        Eat?.Invoke();
     }
+
+
 }

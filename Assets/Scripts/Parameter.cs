@@ -6,25 +6,35 @@ using UnityEngine.UI;
 
 public class Parameter:MonoBehaviour
 {
-    [SerializeField] GameObject Stomach; 
-    public float hp;
-    [SerializeField] GameObject circle;
+    [SerializeField] Text stomachText;
+    [SerializeField] Kirin kirin;
+    
       
     void Start()
     {
-        hp = 1000f;
-        
-        Stomach.GetComponent<Text>().text = hp.ToString();
-       
+        //kirin.hp = 1000f;
+
+
+         stomachText.text = kirin.hp.ToString();
+        StartCoroutine(TimeLoop());
     }
 
     private void Update()
     {
-        hp = hp-1;
-        Stomach.GetComponent<Text>().text = hp.ToString();
 
-        
     }
 
+    IEnumerator TimeLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);//KirinÇ…Ç‡ÇΩÇπÇÈÅB
+            --kirin.hp;//KirinÇ…Ç‡ÇΩÇπÇÈÅB
+            stomachText.text = kirin.hp.ToString();
+            //yield return null;
+            
+        }
+
+    }
 
 }

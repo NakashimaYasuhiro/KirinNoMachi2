@@ -1,12 +1,13 @@
 
 using System.Collections;
+using System.Net;
 using UnityEngine;
 using UnityEngine.AI;
 public class AgentMovement : MonoBehaviour
 {
 
     Vector3 targetPos;
-    
+
     NavMeshAgent agent;
     public GameObject shouzhou;
 
@@ -16,7 +17,7 @@ public class AgentMovement : MonoBehaviour
         Straying,
         BiteDistance,
     }
-    
+
     State state;
     private void Awake()
     {
@@ -24,7 +25,17 @@ public class AgentMovement : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
+    private void Start()
+    {
+        StartCoroutine(LoopGame());
+
+    }
+
     void Update()
+    {
+
+    }
+    void CheckState()
     {
         /* ターゲットのポジションを取得 */
         Vector3 targetPos = shouzhou.transform.position;
@@ -35,32 +46,52 @@ public class AgentMovement : MonoBehaviour
         /* ターゲットとプレイヤーの距離を取得 */
         float dis = Vector3.Distance(targetPos, playerPos);
 
-        if (dis >= 2 && dis<10) { state = State.Follow;}
-        else if (dis >= 10) { state = State.Straying;}
-        else if (dis <2) { state = State.BiteDistance; }
-        switch (state)
-        {
-            case 
-                State.Follow:
-                SetTargetPosition();
-                SetAgentPosition();
-                Debug.Log(state);
-                break;
-
-            case State.Straying:
-                StartCoroutine(SetRandomTargetPosition2());
-                SetAgentPosition();
-                Debug.Log(state);
-                break;
-
-            case State.BiteDistance:
-                Debug.Log(state);
-                break;
-
-
-        }
- 
+        if (dis >= 2 && dis < 5)
+            { state = State.Follow; }
+        else if (dis >= 5)
+            { state = State.Straying; }
+        else if (dis < 2)
+            { state = State.BiteDistance; }
+        //Debug.Log(dis);
     }
+    IEnumerator LoopGame()
+      {
+           
+            while (true)
+        {
+            CheckState();
+            if (state == State.Straying)
+            {
+                yield return new WaitForSeconds(5);
+            }
+            
+           
+            switch (state)
+            {
+                case State.Follow:
+                    SetTargetPosition();
+                    SetAgentPosition();
+                    //Debug.Log(state);
+                    break;
+
+                case State.Straying:
+                    StartCoroutine(SetRandomTargetPosition());
+                    SetAgentPosition();
+                    //Debug.Log(state);
+                    break;
+
+                case State.BiteDistance:
+                    //Debug.Log(state);
+                    break;
+             }
+            yield return null;
+            
+        }
+               
+
+       }
+    
+    
 
     void SetTargetPosition()
     {
@@ -74,17 +105,11 @@ public class AgentMovement : MonoBehaviour
       agent.SetDestination(new Vector3(targetPos.x, targetPos.y , transform.position.z));
     }
 
-    void SetRandomTargetPosition()
-    {
 
-      targetPos = new Vector3(Random.Range(-100,50), Random.Range(-100, 50), Random.Range(1, 50));
-      
-    }
-
-    IEnumerator SetRandomTargetPosition2()
+    IEnumerator SetRandomTargetPosition()
     {
         yield return new WaitForSeconds(5);
-        yield return targetPos = new Vector3(Random.Range(-100, 50), Random.Range(-100, 50), Random.Range(1, 50));
+        targetPos = new Vector3(Random.Range(-18, 18), Random.Range(-5,5));
     }
 
 
