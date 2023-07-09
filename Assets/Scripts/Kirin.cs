@@ -13,19 +13,21 @@ public class Kirin : MonoBehaviour
     {
         pickupObj.Eat = Heal; 
         hp = 100;
+        StartCoroutine(KirinHP());
+        
     }
 
-    /*
+    
     IEnumerator KirinHP()
     {
         while (true)
         {
-
-            hp = -1;
+            yield return new WaitForSeconds(1);
+            hp -= 1;
             yield return null;
         }
     }
-    */
+    
 
     public void Heal() 
     {

@@ -71,17 +71,17 @@ public class AgentMovement : MonoBehaviour
                 case State.Follow:
                     SetTargetPosition();
                     SetAgentPosition();
-                    //Debug.Log(state);
+                    Debug.Log(state);
                     break;
 
                 case State.Straying:
                     StartCoroutine(SetRandomTargetPosition());
                     SetAgentPosition();
-                    //Debug.Log(state);
+                    Debug.Log(state);
                     break;
 
                 case State.BiteDistance:
-                    //Debug.Log(state);
+                    Debug.Log(state);
                     break;
              }
             yield return null;

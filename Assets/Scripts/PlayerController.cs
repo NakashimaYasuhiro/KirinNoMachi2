@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask solidObjectsLayer;
     [SerializeField] LayerMask encountLayer;
+    
 
    // [SerializeField] GameController gameController;
    
@@ -82,9 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         //移動した地点に、敵がいるか判断する
         Collider2D encount = Physics2D.OverlapCircle(transform.position, 0.2f, encountLayer);
-
-
-       
+               
     }
 
     bool IsWalkable(Vector3 targetPos)
@@ -99,13 +98,18 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("InputY", -1);
     }
 
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.gameObject.CompareTag("Food"))
+        
+
+        // foodに衝突したら自オブジェクト削除
+        if (collision.gameObject.tag == "Food")
         {
-            other.gameObject.SetActive(false);
+            Debug.Log("Hit");
+            Destroy(collision.gameObject);
         }
     }
+
+
 
 }
