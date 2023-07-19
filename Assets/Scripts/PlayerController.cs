@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
         {
             if (isMoving == false)
             {
+
+
                 float x = Input.GetAxisRaw("Horizontal");
                 float y = Input.GetAxisRaw("Vertical");
 

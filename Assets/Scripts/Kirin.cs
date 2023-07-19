@@ -6,9 +6,8 @@ public class Kirin : MonoBehaviour
 {
     [SerializeField] PickupObj pickupObj;
     public float hp;
-    // Start is called before the first frame update
-    
-    
+
+
     void Start()
     {
         pickupObj.Eat = Heal; 
