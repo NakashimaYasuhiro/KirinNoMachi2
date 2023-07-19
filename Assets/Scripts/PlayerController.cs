@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask solidObjectsLayer;
     [SerializeField] LayerMask encountLayer;
-    
 
-   // [SerializeField] GameController gameController;
-   
-    
+    [SerializeField] InputAction m_inputMover;
+    Vector2 m_movementValue;
+    // [SerializeField] GameController gameController;
+    private void OnEnable()
+    {
+        m_inputMover.Enable();
+    }
+    private void OnDisable()
+    {
+        m_inputMover.Disable();
+    }
+
 
     Animator animator;
     bool isMoving;
@@ -31,20 +40,26 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        m_movementValue = m_inputMover.ReadValue<Vector2>();
+        
+
         if (enCountStop == false)
         {
             if (isMoving == false)
             {
 
+                float x = m_movementValue.x;
+                float y = m_movementValue.y;
+                Debug.Log("x,y:" + m_movementValue);
 
-                float x = Input.GetAxisRaw("Horizontal");
-                float y = Input.GetAxisRaw("Vertical");
-
+                //float x = Input.GetAxisRaw("Horizontal");
+                //float y = Input.GetAxisRaw("Vertical");
+                /*
                 if (x != 0)
                 {
                     y = 0;
                 }
-
+                */
                 if (x != 0 || y != 0)
                 {
                     animator.SetFloat("InputX", x);
