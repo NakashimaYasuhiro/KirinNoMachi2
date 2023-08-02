@@ -21,6 +21,6 @@ public class ItemBox : MonoBehaviour
     public void SetItem(Item item)
     {
         slot0.SetItem(item);
-       // Debug.Log(type);
+        Debug.Log(item);
     }
 }

@@ -5,13 +5,18 @@ using UnityEngine;
 public class Kirin : MonoBehaviour
 {
     [SerializeField] PickupObj pickupObj;
+    
     public float hp;
+    public float bitePoints;
+    public float foodStock;
 
 
     void Start()
     {
-        pickupObj.Eat = Heal; 
+        pickupObj.Eat = Heal;
+       
         hp = 100;
+        bitePoints = 0;
         StartCoroutine(KirinHP());
         
     }
@@ -26,11 +31,12 @@ public class Kirin : MonoBehaviour
             yield return null;
         }
     }
-    
-
     public void Heal() 
     {
         hp += 100;
     }
+
+
+
 
 }

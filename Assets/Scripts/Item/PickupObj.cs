@@ -5,8 +5,9 @@ using UnityEngine.Events;
 
 public class PickupObj : MonoBehaviour
 {
-    [SerializeField] Item.Type itemType;
-    Item item;
+    [SerializeField] Item.Type item = default;
+    
+    //Item item;
     public UnityAction Eat;
     //[SerializeField] Kirin kirin;
 
@@ -14,15 +15,16 @@ public class PickupObj : MonoBehaviour
     private void Start()
     {
         //itemTypeÇ…âûÇ∂ÇƒitemÇê∂ê¨Ç∑ÇÈ
-        item = ItemGenerater.instance.Spawn(itemType);
+        //item = ItemGenerater.instance.Spawn(itemType);
     }
     public void OnClickObj()
     {
-       
+        Debug.Log("OnClickObj");
+        
         //ItemBox.instance.SetItem(item);
         gameObject.SetActive(false);
         //kirin.hp += 500;
-        Eat?.Invoke();
+        //Eat?.Invoke();
     }
 
 

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask solidObjectsLayer;
     [SerializeField] LayerMask encountLayer;
+    
 
     [SerializeField] InputAction m_inputMover;
     Vector2 m_movementValue;
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
                 float x = m_movementValue.x;
                 float y = m_movementValue.y;
-                Debug.Log("x,y:" + m_movementValue);
+                //Debug.Log("x,y:" + m_movementValue);
 
                 //float x = Input.GetAxisRaw("Horizontal");
                 //float y = Input.GetAxisRaw("Vertical");
@@ -107,6 +108,8 @@ public class PlayerController : MonoBehaviour
     {
         return Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer) == false;
     }
+
+
 
 
     public void SetDirection()

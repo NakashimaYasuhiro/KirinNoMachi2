@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Parameter:MonoBehaviour
 {
     [SerializeField] Text stomachText;
+    [SerializeField] Text bitePointsText;
     [SerializeField] Kirin kirin;
     
       
@@ -16,14 +17,17 @@ public class Parameter:MonoBehaviour
 
 
          stomachText.text = kirin.hp.ToString();
+         bitePointsText.text = kirin.bitePoints.ToString();
         //StartCoroutine(TimeLoop());
     }
 
     private void Update()
     {
-        stomachText.text = kirin.hp.ToString();
+        stomachText.text = kirin.hp.ToString(); 
+        bitePointsText.text = kirin.bitePoints.ToString();
     }
 
+    /*
     IEnumerator TimeLoop()
     {
         while (true)
@@ -35,5 +39,6 @@ public class Parameter:MonoBehaviour
         }
 
     }
+    */
 
 }
