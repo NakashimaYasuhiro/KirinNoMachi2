@@ -116,6 +116,8 @@ public class AgentMovement : MonoBehaviour
                 if (hit2d)
                 {
                     clickedGameObject = hit2d.transform.gameObject;
+                    
+                   // slot.SetGetItem(clickedGameObject);
 
                     if (clickedGameObject.tag == "Child" && state==State.BiteDistance) 
                     {
@@ -124,7 +126,7 @@ public class AgentMovement : MonoBehaviour
                         bool isBiteDisChild = BiteDisChildCheck(clickedGameObject);
                         if (isBiteDisChild)
                         {
-                            //slot.SetGetItem(clickedGameObject);
+                           
                             WhileBiteAction();
                             Destroy(clickedGameObject);
                             childPrefabMaker.MakeChild();
@@ -164,7 +166,7 @@ public class AgentMovement : MonoBehaviour
                 case State.BiteDistance:
                     
 
-                    //Debug.Log(state);
+                   // Debug.Log(state);
                     break;
              }
             yield return null;
