@@ -121,13 +121,14 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-
+        /*
         // foodに衝突したら自オブジェクト削除
         if (collision.gameObject.tag == "Food")
         {
             Debug.Log("Hit");
             Destroy(collision.gameObject);
         }
+        */
     }
 
 

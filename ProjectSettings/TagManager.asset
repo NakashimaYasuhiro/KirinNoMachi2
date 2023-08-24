@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Food
   - Child
+  - Washi
   layers:
   - Default
   - TransparentFX

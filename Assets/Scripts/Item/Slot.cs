@@ -5,45 +5,74 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    Image image;
+    [SerializeField] Image image;
     Item item;
     ItemListEntity itemListEntity;
+    [SerializeField] GameObject backgroundPanel;
+    Sprite defaultSprite;
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+       // image = GetComponent<Image>();
         
 
+    }
+    private void Start()
+    {
+          backgroundPanel.SetActive(false);
+          defaultSprite = image.sprite;
+    }
+
+    public bool IsEmpty()
+    {
+        if (item == null)
+        {
+            return true;
+        }
+        return false;
     }
 
     //アイテムを受け取ったら画像を取得
     public void SetItem(Item item)
     {
+        this.item = item;
+        
         UpdateImage(item);
+    }
+
+    public Item GetItem()
+    {
+        return item;
     }
 
     void UpdateImage(Item item) 
     {
-        image.sprite = item.sprite;
+        if (item == null)
+        {
+            image.sprite = defaultSprite;
+        }
+        else
+        {
+            Debug.Log(item);
+            image.sprite = item.sprite;
+        }
+
     }
 
-    public void SetGetItem(GameObject getobject)
+    public bool OnSelected()
     {
-        if (getobject.tag == "Food")
+        if (item == null)
         {
-            Debug.Log(getobject.tag + "getobject.tag,"+getobject+"getobject");
-            //string item = "Food";
-            //int num = itemListEntity.itemList.Type.IndexOf(item);
+            return false;
         }
-        //アイテムをListにする
-        List<Item> getItemList = new List<Item>();
-        getItemList.Add(item);
-        for (int i = 0; i < getItemList.Count; i++)
-        {
-            Debug.Log(getItemList[i]);
-        }
+
+        backgroundPanel.SetActive(true);
+        return true;
     }
 
-
+    public void HideBGPanel()
+    {
+        backgroundPanel.SetActive(false);
+    }
 
 }

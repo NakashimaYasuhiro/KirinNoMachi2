@@ -17,6 +17,7 @@ public class AgentMovement : MonoBehaviour
     [SerializeField] ChildPrefabMaker childPrefabMaker;
     Animator animator;
     Slot slot;
+    public float dis;
     
     enum State
     {
@@ -50,8 +51,10 @@ public class AgentMovement : MonoBehaviour
 
     void Update()
     {
-       
+        
+
     }
+
     void CheckState()
     {
         /* ターゲットのポジションを取得 */
@@ -61,7 +64,7 @@ public class AgentMovement : MonoBehaviour
         agentPos = agent.transform.position;
 
         /* ターゲットとプレイヤーの距離を取得 */
-        float dis = Vector3.Distance(targetPos, agentPos);
+        dis = Vector3.Distance(targetPos, agentPos);
 
         if (dis >= 2 && dis < 5)
             { state = State.Follow; }
@@ -121,7 +124,7 @@ public class AgentMovement : MonoBehaviour
 
                     if (clickedGameObject.tag == "Child" && state==State.BiteDistance) 
                     {
-                        Debug.Log("tag:" + clickedGameObject.tag);
+                        //Debug.Log("tag:" + clickedGameObject.tag);
 
                         bool isBiteDisChild = BiteDisChildCheck(clickedGameObject);
                         if (isBiteDisChild)
@@ -143,10 +146,13 @@ public class AgentMovement : MonoBehaviour
             SetAgentDirection();
 
             CheckState();
+            
             if (state == State.Straying)
             {
                 yield return new WaitForSeconds(5);
+  
             }
+            
             
            
             switch (state)
@@ -154,19 +160,24 @@ public class AgentMovement : MonoBehaviour
                 case State.Follow:
                     SetTargetPosition();
                     SetAgentPosition();
-                    //Debug.Log(state);
+                    Debug.Log(state);
                     break;
 
                 case State.Straying:
                     StartCoroutine(SetRandomTargetPosition());
+                    Debug.Log("dis"+dis);
+                    if (dis <5)
+                    {
+                        StopAllCoroutines();
+                    }
                     SetAgentPosition();
-                    //Debug.Log(state);
+                    Debug.Log(state);
                     break;
 
                 case State.BiteDistance:
                     
 
-                   // Debug.Log(state);
+                    Debug.Log(state);
                     break;
              }
             yield return null;
@@ -275,6 +286,11 @@ public class AgentMovement : MonoBehaviour
         animator.SetTrigger("Bite");
         kirin.bitePoints = kirin.bitePoints+ 1;
        
+    }
+
+    public void StopRunTime()
+    {
+        StopAllCoroutines();
     }
 
 
