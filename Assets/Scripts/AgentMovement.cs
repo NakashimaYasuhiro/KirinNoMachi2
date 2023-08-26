@@ -1,5 +1,6 @@
 
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Net;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class AgentMovement : MonoBehaviour
     Animator animator;
     Slot slot;
     public float dis;
+    [SerializeField] Sprite childGold;
     
     enum State
     {
@@ -129,9 +131,14 @@ public class AgentMovement : MonoBehaviour
                         bool isBiteDisChild = BiteDisChildCheck(clickedGameObject);
                         if (isBiteDisChild)
                         {
-                           
+                            
+                            SpriteRenderer s = clickedGameObject.GetComponent<SpriteRenderer>();
+                            Debug.Log(s.sprite);
+                            s.sprite = childGold;
+
                             WhileBiteAction();
-                            Destroy(clickedGameObject);
+                           
+                           // Destroy(clickedGameObject);
                             childPrefabMaker.MakeChild();
                         }
                         
@@ -160,7 +167,7 @@ public class AgentMovement : MonoBehaviour
                 case State.Follow:
                     SetTargetPosition();
                     SetAgentPosition();
-                    Debug.Log(state);
+                    //Debug.Log(state);
                     break;
 
                 case State.Straying:
@@ -171,13 +178,13 @@ public class AgentMovement : MonoBehaviour
                         StopAllCoroutines();
                     }
                     SetAgentPosition();
-                    Debug.Log(state);
+                    //Debug.Log(state);
                     break;
 
                 case State.BiteDistance:
                     
 
-                    Debug.Log(state);
+                    //Debug.Log(state);
                     break;
              }
             yield return null;
@@ -203,7 +210,8 @@ public class AgentMovement : MonoBehaviour
     IEnumerator SetRandomTargetPosition()
     {
         yield return new WaitForSeconds(5);
-        targetPos = new Vector3(Random.Range(-18, 18), Random.Range(-5,5));
+        // targetPos = new Vector3(Random.Range(-18, 18), Random.Range(-5,5));
+        targetPos = new Vector3(5,5);
     }
 
     //Kirinアニメーションの向き

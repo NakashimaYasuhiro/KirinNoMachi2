@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList:
   - type: 0
-    sprite: {fileID: 21300000, guid: 67c106d2359d8fe44bec5aca5c53070d, type: 3}
+    sprite: {fileID: 21300000, guid: 6184fcff451bebd47a5a64f5da4156c0, type: 3}
     hpHealPoints: 500
   - type: 1
-    sprite: {fileID: 21300000, guid: e9a0425afa6571e4f92b0f134dd58b28, type: 3}
+    sprite: {fileID: 21300000, guid: 3cea4d8002493714a82c5fbdc03bf120, type: 3}
     hpHealPoints: 100
