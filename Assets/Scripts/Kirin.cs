@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Kirin : MonoBehaviour
@@ -8,14 +9,24 @@ public class Kirin : MonoBehaviour
     
     public float hp;
     public float bitePoints;
+    public static Kirin instance;
     public float foodStock;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            
+        }
+
+    }
 
     void Start()
     {
         pickupObj.Eat = Heal;
        
-        hp = 100;
+        hp = 10;
         bitePoints = 0;
         StartCoroutine(KirinHP());
         

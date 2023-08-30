@@ -8,7 +8,7 @@ public class Parameter:MonoBehaviour
 {
     [SerializeField] Text stomachText;
     [SerializeField] Text bitePointsText;
-    [SerializeField] Kirin kirin;
+    //[SerializeField] Kirin kirin;
     
       
     void Start()
@@ -16,15 +16,15 @@ public class Parameter:MonoBehaviour
         //kirin.hp = 1000f;
 
 
-         stomachText.text = kirin.hp.ToString();
-         bitePointsText.text = kirin.bitePoints.ToString();
+         stomachText.text = Kirin.instance.hp.ToString();
+         bitePointsText.text = Kirin.instance.bitePoints.ToString();
         //StartCoroutine(TimeLoop());
     }
 
     private void Update()
     {
-        stomachText.text = kirin.hp.ToString(); 
-        bitePointsText.text = kirin.bitePoints.ToString();
+        stomachText.text = Kirin.instance.hp.ToString(); 
+        bitePointsText.text = Kirin.instance.bitePoints.ToString();
     }
 
     /*

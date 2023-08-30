@@ -135,6 +135,7 @@ public class AgentMovement : MonoBehaviour
                             SpriteRenderer s = clickedGameObject.GetComponent<SpriteRenderer>();
                             Debug.Log(s.sprite);
                             s.sprite = childGold;
+                            s.tag = "GoldChild";
 
                             WhileBiteAction();
                            
