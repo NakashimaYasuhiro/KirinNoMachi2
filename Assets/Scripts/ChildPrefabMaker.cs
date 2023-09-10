@@ -20,14 +20,15 @@ public class ChildPrefabMaker : MonoBehaviour
         GameObject obj = (GameObject)Resources.Load("Child");
         // Cubeプレハブを元に、インスタンスを生成、
         //Instantiate(obj, new Vector3(1.0f, 1.0f, 0.0f), Quaternion.identity);
-        int i1 = Random.Range(0, 7), i2 = Random.Range(0, 7);
+        int i1 = Random.Range(0, 20), i2 = Random.Range(0, 11);
         Vector3 pos1 = pos[i1], pos2 = pos[i2];  //pos1とpos2にn番目の座標を入れる
 
         int i3 = Random.Range(0, 2); //i4 = Random.Range(0, 1);
         //GameObject obj = images[i3]; //obj2 = images[i4];
 
        Instantiate(obj, pos1, Quaternion.identity);
-        Debug.Log(i1);
+        Debug.Log("pos1"+i1);
+        Debug.Log(pos[i1]);
         //Instantiate(obj2, pos2, Quaternion.identity);
     }
 
@@ -35,17 +36,7 @@ public class ChildPrefabMaker : MonoBehaviour
     public List<GameObject> images = new List<GameObject>();  //画像を含んだゲームオブジェクト20個
 
     //Set()を呼び出してランダムに設置
-    void Set()
-    {
-        int i1 = Random.Range(0, 2), i2 = Random.Range(0, 1);
-        Vector3 pos1 = pos[i1], pos2 = pos[i2];  //pos1とpos2にn番目の座標を入れる
+  
 
-        int i3 = Random.Range(0, 2), i4 = Random.Range(0, 1);
-        GameObject obj1 = images[i3], obj2 = images[i4];
-
-        Instantiate(obj1, pos1, Quaternion.identity);
-        //Instantiate(obj2, pos2, Quaternion.identity);
-
-    }
 
 }

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         hp = Kirin.instance.hp;
-        Debug.Log(hp);
+        //Debug.Log(hp);
         if (hp == 0)
         {
             SceneManager.LoadScene("Result");

@@ -26,7 +26,7 @@ public class Kirin : MonoBehaviour
     {
         pickupObj.Eat = Heal;
        
-        hp = 10;
+        //hp = 10;
         bitePoints = 0;
         StartCoroutine(KirinHP());
         

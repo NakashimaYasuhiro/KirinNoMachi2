@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 public class AgentMovement : MonoBehaviour
@@ -27,7 +28,7 @@ public class AgentMovement : MonoBehaviour
         Straying,
         BiteDistance,
     }
-    State state;
+    [SerializeField] State state; 
 
     enum KirinDirection
     {
@@ -37,9 +38,12 @@ public class AgentMovement : MonoBehaviour
         Down,
         Stay,
     }
-    //KirinDirection kirinDirection;
+    Coroutine coroutine;
+    WaitForSeconds checkWait = new WaitForSeconds(0.2f);
     private void Awake()
-    {   
+    {
+        audioSource = GetComponent<AudioSource>();
+        
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -47,9 +51,28 @@ public class AgentMovement : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(LoopGame());
+        
+        coroutine = StartCoroutine(LoopGame());
+        StartCoroutine(CheckDis());
 
     }
+    IEnumerator CheckDis()
+    {
+        while (true)
+        {
+            yield return checkWait;
+            dis = Vector3.Distance(shouzhou.transform.position, agent.transform.position);
+
+            if (state == State.Straying && dis < 5)
+            {
+                StopCoroutine(coroutine);
+                coroutine = null;
+                Debug.Log("‹ß‚Ã‚¢‚½");
+                coroutine = StartCoroutine(LoopGame());
+            }
+        }
+    }
+
 
     void Update()
     {
@@ -173,7 +196,7 @@ public class AgentMovement : MonoBehaviour
 
                 case State.Straying:
                     StartCoroutine(SetRandomTargetPosition());
-                    Debug.Log("dis"+dis);
+                    //Debug.Log("dis"+dis);
                     if (dis <5)
                     {
                         StopAllCoroutines();
@@ -290,12 +313,20 @@ public class AgentMovement : MonoBehaviour
         }
     }
 
+    [SerializeField] PopupText popupText;
+    public AudioClip sound1;
+    AudioSource audioSource;
     public void WhileBiteAction()
     {
         animator.SetTrigger("Bite");
         kirin.bitePoints = kirin.bitePoints+ 1;
-       
+        popupText.transform.position = transform.position;
+        popupText.StartPopup(1);
+        audioSource.PlayOneShot(sound1);
+
+
     }
+
 
     public void StopRunTime()
     {
