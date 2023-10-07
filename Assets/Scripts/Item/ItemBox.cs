@@ -52,20 +52,19 @@ public class ItemBox : MonoBehaviour
         
         
     }
-    public bool TryUseItem()
+    public Item.Type TryUseItem()
     {
         //選択スロットがあるかどうか
         if (selectedSlot == null)
         {
-            return false;
-        }
-        if(selectedSlot.GetItem().type == Item.Type.Food) 
-        {
-            Debug.Log("Item.Type.Food");
-            return true;
+            return Item.Type.None;
         }
         
-            return false;
+            //Debug.Log("Item.Type.Food");
+            return selectedSlot.GetItem().type;
+        
+        
+           
     }
 
     public void ClearUseItem()

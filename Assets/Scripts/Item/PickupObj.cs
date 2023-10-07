@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,22 +18,30 @@ public class PickupObj : MonoBehaviour
     {
         //itemTypeÇ…âûÇ∂ÇƒitemÇê∂ê¨Ç∑ÇÈ
         item = ItemGenerater.instance.Spawn(itemType);
+        
     }
     public void OnClickObj()
     {
        
-        if (gameObject.tag == "Food")
+        if (gameObject.tag == "Nashi")
         {
             
             ItemBox.instance.SetItem(item);
+            Debug.Log("nashiÇ≈Ç∑");
+
         }
-        else if(gameObject.tag == "Washi")
+        else if(gameObject.tag == "Kani")
+        {
+            Debug.Log("kaniÇ≈Ç∑");
+            ItemBox.instance.SetItem(item);
+        }
+        else if (gameObject.tag == "Washi")
         {
             Debug.Log("washiÇ≈Ç∑");
             ItemBox.instance.SetItem(item);
         }
-       
-        
+
+
         gameObject.SetActive(false);
         //kirin.hp += 500;
         //Eat?.Invoke();

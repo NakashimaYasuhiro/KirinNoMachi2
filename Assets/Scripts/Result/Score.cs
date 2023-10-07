@@ -10,7 +10,7 @@ public class Score : MonoBehaviour
     void Start()
     {
        bitePoint = GetComponent<Text>();
-        bitePoint.text = Kirin.instance.bitePoints.ToString();
+        bitePoint.text = Kirin.instance.bitePoints.ToString()+"‚©‚Ý";
         Debug.Log("bitePoint"+bitePoint.text);
        
 

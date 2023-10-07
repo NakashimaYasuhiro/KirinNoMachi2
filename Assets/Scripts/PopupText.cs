@@ -7,7 +7,7 @@ using DG.Tweening;
 public class PopupText : MonoBehaviour
 {
     Text textBite;
-    Text textEat;
+    
     private void Awake()
     {
         textBite = GetComponentInChildren<Text>();
@@ -23,7 +23,7 @@ public class PopupText : MonoBehaviour
     {
         textBite.gameObject.SetActive(true);
         textBite.text = "+" + textValue + "‚©‚Ý";
-        yield return transform.DOMoveY(0.1f, 0.3f).WaitForCompletion();
+        yield return transform.DOMoveY(2f, 0.3f).SetRelative().WaitForCompletion();
         yield return new WaitForSeconds(0.5f);
         textBite.gameObject.SetActive(false);
     }

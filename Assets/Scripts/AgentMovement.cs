@@ -1,4 +1,5 @@
 
+using DG.Tweening;
 using JetBrains.Annotations;
 using System;
 using System.Collections;
@@ -21,14 +22,20 @@ public class AgentMovement : MonoBehaviour
     Slot slot;
     public float dis;
     [SerializeField] Sprite childGold;
-    
-    enum State
+
+    [SerializeField] PopupText popupText;
+    public AudioClip sound1;
+    AudioSource audioSource;
+    [SerializeField] PopupTextUseItem popupTextUseItem;
+
+    public enum State
     {
         Follow,
         Straying,
         BiteDistance,
     }
-    [SerializeField] State state; 
+    //[SerializeField] State state; 
+    public State state;
 
     enum KirinDirection
     {
@@ -91,11 +98,11 @@ public class AgentMovement : MonoBehaviour
         /* ターゲットとプレイヤーの距離を取得 */
         dis = Vector3.Distance(targetPos, agentPos);
 
-        if (dis >= 2 && dis < 5)
+        if (dis >= 3 && dis < 8)
             { state = State.Follow; }
-        else if (dis >= 5)
+        else if (dis >= 8)
             { state = State.Straying; }
-        else if (dis < 2)
+        else if (dis < 3)
             { state = State.BiteDistance; }
         //Debug.Log(dis);
     }
@@ -111,8 +118,7 @@ public class AgentMovement : MonoBehaviour
         childPos = Child.transform.position;
          //ターゲットとプレイヤーの距離を取得
        float biteDis = Vector3.Distance(targetPos, childPos);
-        //Debug.Log("biteDis" + biteDis);
-        if (biteDis < 2)
+        if (biteDis < 3.5f)
         {
           return true;
         }
@@ -125,8 +131,9 @@ public class AgentMovement : MonoBehaviour
         
 
         //クリックしたのが子供かどうか判定するため
-        GameObject clickedGameObject;
-
+     [SerializeField] GameObject clickedGameObject;
+    [SerializeField] LayerMask layerMask;
+   
 
     IEnumerator LoopGame()
       {
@@ -141,37 +148,28 @@ public class AgentMovement : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction);
 
+
                 if (hit2d)
                 {
                     clickedGameObject = hit2d.transform.gameObject;
                     
-                   // slot.SetGetItem(clickedGameObject);
-
-                    if (clickedGameObject.tag == "Child" && state==State.BiteDistance) 
+                 if (clickedGameObject.tag == "Child" && state==State.BiteDistance) 
                     {
-                        //Debug.Log("tag:" + clickedGameObject.tag);
-
+                        
                         bool isBiteDisChild = BiteDisChildCheck(clickedGameObject);
                         if (isBiteDisChild)
-                        {
-                            
-                            SpriteRenderer s = clickedGameObject.GetComponent<SpriteRenderer>();
-                            Debug.Log(s.sprite);
-                            s.sprite = childGold;
-                            s.tag = "GoldChild";
+                        { 
+                                                       
+                            StartCoroutine(BiteSetPosition(clickedGameObject));
 
-                            WhileBiteAction();
+                            
                            
-                           // Destroy(clickedGameObject);
                             childPrefabMaker.MakeChild();
                         }
                         
-                       // Debug.Log(state);
+                      
                     }
                 }
-
-                
-
             }
 
             SetAgentDirection();
@@ -234,17 +232,15 @@ public class AgentMovement : MonoBehaviour
     IEnumerator SetRandomTargetPosition()
     {
         yield return new WaitForSeconds(5);
-        // targetPos = new Vector3(Random.Range(-18, 18), Random.Range(-5,5));
-        targetPos = new Vector3(5,5);
+
+        //targetPos = new Vector3(5,5);
+        targetPos = new Vector3(UnityEngine.Random.Range(-15f, 15f), UnityEngine.Random.Range(-15f, 15f));
     }
 
     //Kirinアニメーションの向き
     private void SetAgentDirection()
     {
-        //Debug.Log("targetPosX"+targetPos.x);
-        //Debug.Log("agentPosX"+ agentPos.x);
-        //Debug.Log("targetPosX-agentPosX" + (targetPos.x- agentPos.x));
-        //Debug.Log("targetPosY-agentPosY" + (targetPos.y - agentPos.y));
+
         float absX = Mathf.Abs(targetPos.x - agentPos.x);
         //Debug.Log("absX"+absX);
         float absY = Mathf.Abs(targetPos.y - agentPos.y);
@@ -313,26 +309,37 @@ public class AgentMovement : MonoBehaviour
         }
     }
 
-    [SerializeField] PopupText popupText;
-    public AudioClip sound1;
-    AudioSource audioSource;
-    public void WhileBiteAction()
-    {
-        animator.SetTrigger("Bite");
-        kirin.bitePoints = kirin.bitePoints+ 1;
-        popupText.transform.position = transform.position;
-        popupText.StartPopup(1);
-        audioSource.PlayOneShot(sound1);
-
-
-    }
-
 
     public void StopRunTime()
     {
         StopAllCoroutines();
     }
+    IEnumerator BiteSetPosition(GameObject clickedGameObject)
+    {
+        SpriteRenderer s = clickedGameObject.GetComponent<SpriteRenderer>();
+        Debug.Log(s.sprite);
+        s.tag = "GoldChild";
 
+        //clickedGameObject(子供)の座標を取得して、横に移動する
+        Vector3 childPosi = clickedGameObject.transform.position;
+         childPosi.x += 2;
+        
+        yield return transform.DOMove(new Vector3(childPosi.x+0.2f,childPosi.y),0.35f).WaitForCompletion();
+        //
+
+        animator.SetTrigger("Bite");
+        yield return new WaitForSeconds(0.5f);
+        s.sprite = childGold;
+        
+        kirin.bitePoints = kirin.bitePoints + 1;
+        kirin.hp += 5;
+
+        popupText.transform.position = transform.position;
+        popupText.StartPopup(1);
+        audioSource.PlayOneShot(sound1);
+        popupTextUseItem.StartPopupUseItem(5);
+
+    }
 
 
 

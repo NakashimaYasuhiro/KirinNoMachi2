@@ -8,17 +8,19 @@ TagManager:
   - Child
   - Washi
   - GoldChild
+  - Kani
+  - Nashi
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - SolidObjects
   - Background
   - Child
-  - 
+  - Kirin
   - 
   - 
   - 

@@ -6,14 +6,16 @@ public class Item
 {
     public enum Type
     {
-        Food,
+        None,
+        Nashi,
+        Kani,
         Washi,
     }
 
     public Type type;
     public Sprite sprite;
     //public long heal;
-    public float hpHealPoints;
+   // public float hpHealPoints;
     
     
     
